@@ -13,7 +13,6 @@ cc_library_shared {
         "libsync",
     ],
     header_libs: [
-        "libvmmem_headers",
         "qti_display_kernel_headers",
         "display_intf_headers",
         "snapalloc_interface_headers",

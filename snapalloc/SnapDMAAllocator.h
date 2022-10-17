@@ -6,7 +6,6 @@
 
 #include <BufferAllocator/BufferAllocator.h>
 #include <sys/ioctl.h>
-#include <vmmem.h>
 
 #include <bitset>
 #include <cstdint>
@@ -17,6 +16,7 @@
 #include "SnapMemAllocDefs.h"
 #include "SnapTypes.h"
 #include "Debug.h"
+#include "vmmem.h"
 
 #ifdef TARGET_USES_SMMU_PROXY
 #include <linux/qti-smmu-proxy.h>
