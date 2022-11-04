@@ -75,6 +75,9 @@ class SnapDMAAllocator : public ISnapMemAllocBackend {
   DestroyMemBufInterface DestroyMemBuf_ = nullptr;
   bool movable_heap_system_available_ = false;
   bool movable_heap_ubwcp_available_ = false;
+
+  void* libvmmemPointer;
+  std::unique_ptr<VmMem> (*createVmMem)();
 };
 
 }  // namespace snapalloc

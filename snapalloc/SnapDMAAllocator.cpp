@@ -21,6 +21,21 @@ std::mutex SnapDMAAllocator::snap_dma_alloc_mutex_;
 
 SnapDMAAllocator::SnapDMAAllocator() {
   debug_ = Debug::GetInstance();
+
+  libvmmemPointer = dlopen("libvmmem.so", RTLD_LAZY);
+
+  if (libvmmemPointer) {
+    createVmMem = reinterpret_cast<std::unique_ptr<VmMem> (*)()>(dlsym(libvmmemPointer,
+                                                                 "CreateVmMem"));
+    const char* dlsym_error = dlerror();
+    if (dlsym_error) {
+      DLOGE("Cannot load symbol CreateVmMem: %s", dlsym_error);
+      return;
+    }
+  } else {
+    DLOGE("Could not load libvmmem: %s", dlerror());
+    return;
+  }
 }
 
 SnapDMAAllocator *SnapDMAAllocator::GetInstance() {
@@ -126,7 +141,7 @@ int SnapDMAAllocator::ImportBuffer(int fd) {
 
 Error SnapDMAAllocator::SecureMemPerms(AllocData *ad) {
   int ret = 0;
-  std::unique_ptr<VmMem> vmmem = VmMem::CreateVmMem();
+  std::unique_ptr<VmMem> vmmem = createVmMem();
   if (!vmmem) {
     DLOGE("Failed to create VmMem");
     return Error::BAD_VALUE;
