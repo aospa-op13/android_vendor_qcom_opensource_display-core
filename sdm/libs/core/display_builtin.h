@@ -363,6 +363,7 @@ class DisplayBuiltIn : public DisplayBase,
   DisplayError QueryDemuraTnInfo(void *data);
   DisplayError SetDemuraTnBatchId(void *data);
   DisplayError SetDemuraTnAodHandlerCtrl(void *data);
+  DisplayError SetDemuraTnAgingSurfTransfer(void *data);
   int StartVmFileServiceAndExportFiles();
   int CreateServiceManager();
   int HandleTvmServiceEvent(const TvmServiceCbEvent &event);
@@ -422,6 +423,7 @@ class DisplayBuiltIn : public DisplayBase,
   bool abc_enabled_ = false;
   bool abc_tvm_enabled_ = false;
   bool abc_prop_ = false;
+  int abc_brightness_level_ = -1;
   bool enable_dpps_dyn_fps_ = false;
   HWDisplayMode last_panel_mode_ = kModeDefault;
   bool hdr_present_ = false;
