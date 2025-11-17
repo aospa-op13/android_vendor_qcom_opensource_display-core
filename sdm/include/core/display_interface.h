@@ -241,6 +241,7 @@ struct DisplayConfigFixedInfo {
   bool partial_update = false;          //!< If display supports Partial Update.
   bool readback_supported = false;      //!< If display supports buffer readback.
   bool supports_unified_draw = false;   //!< If display support unified drawing methods.
+  bool vhm_support = false;             //!< If display supports vhm mode.
 };
 
 /*! @brief This structure defines configuration for variable properties of a display device.
@@ -381,6 +382,8 @@ enum PanelFeatureVendorServiceType {
   kTypeDemuraTnBatchId = 9,
   /* Setter: None */
   kTypeDemuraTnAodHandlerCtrl = 10,
+  /* Setter: None */
+  kTypeDemuraTnAgingSurfTransfer = 11,
   PanelFeatureVendorServiceTypeMax,
 };
 
@@ -1536,6 +1539,12 @@ class DisplayInterface {
    @return \link void \endlink
   */
   virtual void TriggerIdleTimeout() = 0;
+
+  /*! @brief Method to enable the RGB|A split on this display
+
+   @return \link DisplayError \endlink
+  */
+  virtual DisplayError SetRGBASplit(int32_t split_enable) = 0;
 
  protected:
   virtual ~DisplayInterface() { }
