@@ -799,13 +799,11 @@ struct HWScaleData {
   uint32_t cac_re_asym_phase_step_v = 0;
 };
 
-#ifndef DS_MERGE_NODE_UNSUPPORTED
 enum DSMergeMode {
   kDestScalerSinglePipe,
   kDestScalerDualPipe,
   kDestScalerQuadPipe,
 };
-#endif
 
 struct HWDestScaleInfo {
   uint32_t mixer_width = 0;
@@ -813,9 +811,7 @@ struct HWDestScaleInfo {
   bool scale_update = false;
   HWScaleData scale_data = {};
   LayerRect panel_roi = {};
-#ifndef DS_MERGE_NODE_UNSUPPORTED
   DSMergeMode mixer_merge_mode = kDestScalerSinglePipe;
-#endif
 };
 
 typedef std::map<uint32_t, HWDestScaleInfo *> DestScaleInfoMap;
